@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='script/script.js') }}"></script>
+<title>Adversarial Example でもさいと</title>
+</head>
+<body>
+    <div id="all">
+        <h1>Adversarial Example Demo Site</h1>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
