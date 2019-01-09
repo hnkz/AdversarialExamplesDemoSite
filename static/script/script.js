@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var
     dropArea = document.getElementById('dropArea'),
     output = document.getElementById('output'),
+    child_elm = document.createElement('div'),
 
     // 画像の最大ファイルサイズ（20MB）
     maxSize = 20 * 1024 * 1024;
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       // 画像出力処理へ進む
-      outputImage(file);
+      // outputImage(file);
     }
   }
 
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function outputImage(blob) {
     var
       // 画像要素の生成
-      image = new Image(300, 300),
+      image = new Image(50, 50),
 
       // File/BlobオブジェクトにアクセスできるURLを生成
       blobURL = URL.createObjectURL(blob);
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
       URL.revokeObjectURL(blobURL);
 
       // #output へ出力
-      output.appendChild(image);
+      child_elm.append(image);
     });
   }
 
@@ -75,8 +76,9 @@ document.addEventListener('DOMContentLoaded', function () {
     dropArea.classList.remove('dragover');
     output.textContent = '';
 
-    // ev.dataTransfer.files に複数のファイルのリストが入っている
-    organizeFiles(ev.dataTransfer.files);
+    outputImage(ev.dataTransfer.files[0]);
+    sendImage(ev.dataTransfer.files[0]);
+    ev.dataTransfer.files = null;
   });
 
   // #dropArea がクリックされた時
@@ -88,10 +90,40 @@ document.addEventListener('DOMContentLoaded', function () {
   fileInput.addEventListener('change', function (ev) {
     output.textContent = '';
 
-    // ev.target.files に複数のファイルのリストが入っている
-    organizeFiles(ev.target.files);
+    outputImage(ev.target.files[0]);
+    sendImage(ev.target.files[0]);
+    ev.target.files = null;
 
     // 値のリセット
     fileInput.value = '';
   });
+
+  function sendImage(image) {
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    var url = "http://127.0.0.1:5000/predict";
+
+    fd.append("image", image);
+    xhr.open('POST', url, true);
+
+    // result
+    xhr.onload = function() {
+      if (this.status == 200) {
+        var resp = JSON.parse(this.response);
+        console.log('Server got:', resp);
+        if(resp['predict_number']) {
+          var elem = document.getElementById("predict");
+          child_elm.id = 'child';
+          res_elm = document.createElement('p');
+          res_elm.textContent = 'Probable result is "' + resp['predict_number'] + '".';
+          child_elm.append(res_elm);
+          elem.insertBefore(child_elm, elem.firstChild);
+          
+          child_elm = document.createElement('div');
+        }
+      };
+    };
+
+    xhr.send(fd);
+  }
 });

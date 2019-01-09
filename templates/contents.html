@@ -1,13 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <h2>Step1: Select image</h2>
-<form action="" method="post">
 <div id="dropArea">Drop or Click here!</div>
 <input id="fileInput" type="file" accept="image/*" multiple>
 <div id="output"></div>
-<input type="submit" value="Send">
-</form>
 
-<h2>Step2: Send image and Predict</h2>
-<div id="predict">{{ result }}</div>
+<h2>Step2: Wait server response and Confirm the result</h2>
+<div id="predict"></div>
 {% endblock %}

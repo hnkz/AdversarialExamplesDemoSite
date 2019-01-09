@@ -52,7 +52,29 @@ input[type=submit]:hover {
     display: none;
   }
   
-  #output img {
+  /* #output img {
     display: block;
     margin: 15px auto;
+  } */
+
+  #predict {
+    background-color: #ccc;
+    font-size: 3em;
+    font-weight: bold;
+    text-align: center;
+    color: #e37;
+    height: 64px;
+  }
+
+  #predict p {
+    line-height: 64px;
+  }
+
+  #predict img {
+    margin: 7px;
+    float: left;
+  }
+
+  #child {
+    background-color: #ddd;
   }
