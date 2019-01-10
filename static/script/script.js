@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var
     dropArea = document.getElementById('dropArea'),
     output = document.getElementById('output'),
-    child_elm = document.createElement('div'),
+    child_elm = document.createElement('p'),
 
     // 画像の最大ファイルサイズ（20MB）
     maxSize = 20 * 1024 * 1024;
@@ -113,13 +113,16 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Server got:', resp);
         if(resp['predict_number']) {
           var elem = document.getElementById("predict");
-          child_elm.id = 'child';
-          res_elm = document.createElement('p');
-          res_elm.textContent = 'Probable result is "' + resp['predict_number'] + '".';
-          child_elm.append(res_elm);
+          if(!elem.style.borderTop) {
+            elem.style.borderTop = '#333 1px solid';
+          }
+          child_elm.class = 'child';
+          // res_elm = document.createElement('p');
+          // res_elm.textContent = 'Probable result is "' + resp['predict_number'] + '".';
+          child_elm.append('Probable result is "' + resp['predict_number'] + '".');
           elem.insertBefore(child_elm, elem.firstChild);
           
-          child_elm = document.createElement('div');
+          child_elm = document.createElement('p');
         }
       };
     };

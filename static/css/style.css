@@ -1,5 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 h1 {
+  margin: 10px;
   text-align: center;
+}
+
+h2 {
+  margin: 10px;
 }
 
 body {
@@ -58,16 +68,7 @@ input[type=submit]:hover {
   } */
 
   #predict {
-    background-color: #ccc;
-    font-size: 3em;
-    font-weight: bold;
-    text-align: center;
-    color: #e37;
-    height: 64px;
-  }
-
-  #predict p {
-    line-height: 64px;
+    
   }
 
   #predict img {
@@ -75,6 +76,15 @@ input[type=submit]:hover {
     float: left;
   }
 
-  #child {
-    background-color: #ddd;
+  #predict p {
+    background-color: #ccc;
+    height: 64px;
+    line-height: 64px;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    color: #e37;
+    /* border-top: #333 1px solid; */
+    border-bottom: #333 1px solid;    
   }
+
